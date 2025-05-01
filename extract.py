@@ -21,8 +21,12 @@ for script_tag in script_tags:
 
         try :
             data = json.loads(json_data_str)
-            print(json.dumps(data, indent = 4))
+            sorted_data = sorted(data, key=lambda item: item['ticker'], reverse=True)
+#             print(json.dumps(sorted_data, indent = 4))
             print("total no. of objects = ", len(data))
+            with open('output.json', 'w', encoding='utf-8') as json_file:
+                json.dump(sorted_data, json_file, indent = 4)
+            print("JSON data written to output.json")
             break
         except json.JSONDecodeError:
             print("Error: Invalid JSON format found. Skipping this script tag")
